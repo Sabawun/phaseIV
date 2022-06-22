@@ -16,6 +16,5 @@
         <TextArea layoutX="184.0" layoutY="34.0" prefHeight="26.0" prefWidth="226.0" text="Adding Festival Run&#10;" />
         <Button layoutX="66.0" layoutY="294.0" mnemonicParsing="false" onAction="#submitClicked" text="Submit" />
         <Button layoutX="66.0" layoutY="328.0" mnemonicParsing="false" onAction="#backClicked" text="Back" />
-      <Button layoutX="93.0" layoutY="79.0" mnemonicParsing="false" onAction="#listFestivals" text="Get Festivals" />
     </children>
 </Pane>

@@ -34,7 +34,8 @@ public class festivalRunController {
     private TextField fRunTime;
     @FXML
     private ComboBox fBox;
-    public void listFestivals(ActionEvent event) throws  IOException, ParseException
+    @FXML
+    public void initialize() throws  IOException, ParseException
     {
         HttpURLConnection connection = (HttpURLConnection)
                 new URL("http://localhost:8080/getallfestivals").openConnection();
@@ -68,29 +69,40 @@ public class festivalRunController {
         s.setScene(new Scene(root, 600, 600));
         s.show();
     }
-    public void submitClicked(ActionEvent event) throws IOException, ParseException
+    public void submitClicked(ActionEvent event) throws IOException
     {
-
-        String festivalRunId = fRunId.getText();
-        String festivalRunDuration = fRunDuration.getText();
-        String festivalRunDate = fRunDate.getText();
-        String festivalRunTime = fRunTime.getText();
-        System.out.printf("%s  %s  %s ",festivalRunDuration, festivalRunDate, festivalRunTime);
-        int ftime = Integer.parseInt(festivalRunTime);
-        int festivalId = 0;
-        festivalId = Character.getNumericValue(fBox.getValue().toString().charAt(0));
-        URL url = new URL ("http://localhost:8080/addfestivalrun");
-        String JsonInput = "festival(festivalId)="+festivalId+"&festivalRunDuration="
-                +festivalRunDuration+"&festivalRunTime="+ftime+
-                "&festivalRunDate="+festivalRunDate;
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setDoOutput( true );
+        System.out.print("Helll");
+        HttpURLConnection connection = (HttpURLConnection) new URL("http://localhost:8080/addfestivalrun").openConnection();
         connection.setRequestMethod("POST");
-        try(OutputStream os = connection.getOutputStream()) {
-            byte[] input = JsonInput.getBytes(StandardCharsets.UTF_8);
+        connection.setRequestProperty("Content-Type", "application/json; utf-8");
+        connection.setRequestProperty("Accept", "application/json; utf-8");
+        connection.setDoOutput(true);
+        connection.setDoInput(true);
+        JSONObject festivalRun = new JSONObject();
+        festivalRun.put("festivalRunDuration", fRunDuration.getText());
+        festivalRun.put("festivalRunTime", Integer.parseInt(fRunTime.getText()));
+        festivalRun.put("festivalRunDate", fRunDate.getText());
+        int festId = Character.getNumericValue(fBox.getValue().toString().charAt(0));
+        JSONObject fest = new JSONObject();
+        fest.put("festivalId", festId);
+        festivalRun.put("festival", fest);
+
+        try(OutputStream os = connection.getOutputStream()){
+            byte[] input = festivalRun.toJSONString().getBytes(StandardCharsets.UTF_8);
             os.write(input, 0, input.length);
         }
-
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        String response = "";
+        int responsecode = connection.getResponseCode();
+        if(responsecode == 200){
+            Scanner scanner = new Scanner(connection.getInputStream());
+            while(scanner.hasNextLine()){
+                response += scanner.nextLine();
+            }
+            scanner.close();
         }
     }
+}
 
