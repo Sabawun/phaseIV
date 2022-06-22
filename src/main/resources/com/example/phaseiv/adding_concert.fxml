@@ -8,15 +8,15 @@
 
 <Pane fx:id="controlPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.phaseiv.concertController">
     <children>
-        <TextArea layoutX="224.0" layoutY="14.0" prefHeight="14.0" prefWidth="153.0" text="Adding Concerts&#10;" />
-        <ComboBox layoutX="66.0" layoutY="59.0" prefWidth="150.0" promptText="Select Festival" />
-        <ComboBox layoutX="66.0" layoutY="101.0" prefWidth="150.0" promptText="Select Festival Run" />
-        <TextField layoutX="66.0" layoutY="184.0" promptText="Enter Duration" />
-        <TextField layoutX="66.0" layoutY="229.0" promptText="Enter Performer Name" />
-        <TextField layoutX="259.0" layoutY="184.0" promptText="Enter Description" />
-        <TextField layoutX="259.0" layoutY="141.0" promptText="Enter Date" />
-        <TextField layoutX="66.0" layoutY="141.0" promptText="Enter Event Id" />
-        <Button layoutX="391.0" layoutY="284.0" mnemonicParsing="false" text="Submit" />
+        <TextArea layoutX="224.0" layoutY="14.0" prefHeight="14.0" prefWidth="153.0" text="Adding Concerts" />
+        <ComboBox fx:id="Festival_combo" layoutX="66.0" layoutY="59.0" onAction="#afterFest" prefWidth="150.0" promptText="Select Festival" />
+        <ComboBox fx:id="Festival_run_combo" layoutX="66.0" layoutY="101.0" prefWidth="150.0" promptText="Select Festival Run" />
+        <TextField fx:id="concert_duration" layoutX="66.0" layoutY="184.0" promptText="Enter Duration" />
+        <TextField fx:id="concert_performer" layoutX="66.0" layoutY="229.0" promptText="Enter Performer Name" />
+        <TextField fx:id="concert_description" layoutX="259.0" layoutY="184.0" promptText="Enter Description" />
+        <TextField fx:id="concert_date" layoutX="259.0" layoutY="141.0" promptText="Enter Date" />
+        <TextField fx:id="concert_id" layoutX="66.0" layoutY="141.0" promptText="Enter Event Id" />
+        <Button layoutX="391.0" layoutY="284.0" mnemonicParsing="false" onAction="#onSubmit" text="Submit" />
         <Button layoutX="397.0" layoutY="317.0" mnemonicParsing="false" onAction="#onClickBack" text="Back" />
     </children>
 </Pane>
